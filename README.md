@@ -1,4 +1,3 @@
-
 # Searle Consulting Newsletters
 
 This is the Newsletters application for
