@@ -1,5 +1,9 @@
 NewslettersApp::Application.routes.draw do
 
+  get "static_pages/home"
+
+  get "static_pages/help"
+
   resources :subscriptions
   resources :newsletters
   resources :users
