@@ -1,4 +1,9 @@
 NewslettersApp::Application.routes.draw do
+
+  resources :subscriptions
+  resources :newsletters
+  resources :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
