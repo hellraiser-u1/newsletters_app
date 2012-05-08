@@ -8,6 +8,7 @@ NewslettersApp::Application.routes.draw do
   match '/contact', to: 'static_pages#contact'
 
   match '/signup',  to: 'users#new'
+
   
   resources :subscriptions
   resources :newsletters
