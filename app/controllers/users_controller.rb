@@ -58,6 +58,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+      UserMailer.welcome_email(@user).deliver
+      
       flash[:success] = "Thank you for subscribing to our Newsletter!"
       redirect_to @user
     else
