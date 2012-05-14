@@ -6,6 +6,9 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'factory_girl_rails', '1.4.0'
 gem 'ar_mailer_rails3'
 
+#gem 'mail', '2.1.3'
+gem 'mail', '2.4.4'
+
 
 group :development do
   gem 'sqlite3', '1.3.5'

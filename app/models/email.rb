@@ -1,4 +1,4 @@
-class Email < ActiveRecord::Base
+class Emails < ActiveRecord::Base
 
   def send_email
     @recipients = "hellraiser.u1@gmail.com"
