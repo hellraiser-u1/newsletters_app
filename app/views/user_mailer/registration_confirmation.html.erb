@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>Hi <%= @user.name %></p>
+    <h1>Thank you for your subscription to our Newsletter</h1>
+    <p>
+      Your email address: <%= @user.email %>
+      <br/>
+      <%= link_to "[Edit Profile]", edit_user_path(@user) %>
+    </p>
+    <p>
+      To login to the site, just follow this link: http://floating-sky.herokuapps.com
+    </p>
+    <p>Thanks for your interest and have a great day!</p>
+  </body>
+</html>
