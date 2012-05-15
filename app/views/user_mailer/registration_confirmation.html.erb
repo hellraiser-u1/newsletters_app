@@ -5,15 +5,18 @@
   </head>
   <body>
     <p>Hi <%= @user.name %></p>
-    <h1>Thank you for your subscription to our Newsletter</h1>
+    <h1>Thank you for registering with Application X</h1>
+
+    <p>
+      To login to the site, just follow this link: <%= @url %>
+    </p>
+    
     <p>
       Your email address: <%= @user.email %>
       <br/>
       <%= link_to "[Edit Profile]", edit_user_path(@user) %>
     </p>
-    <p>
-      To login to the site, just follow this link: https://floating-sky.herokuapp.com
-    </p>
-    <p>Thanks for your interest and have a great day!</p>
+
+    <p>Thanks for your membership and have a great day!</p>
   </body>
 </html>
