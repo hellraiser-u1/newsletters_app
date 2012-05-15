@@ -4,7 +4,7 @@ gem 'rails', '3.2.3'
 gem 'bootstrap-sass', '2.0.0'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'factory_girl_rails', '1.4.0'
-#gem 'ar_mailer_rails3'
+# gem 'ar_mailer_rails3'
 
 # gem 'mail', '2.1.3'
 gem 'mail', '2.4.4'
