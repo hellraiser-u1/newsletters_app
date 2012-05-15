@@ -8,6 +8,22 @@ NewslettersApp::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.delivery_method = :smtp
+  # Gmail SMTP server setup
+  config.action_mailer.smtp_settings = {
+        :address => "smtp.gmail.com",
+        :enable_starttls_auto => true,
+        :port => 587,
+        :domain => '@example.com',
+        :authentication => :plain,
+        :user_name => 'hellraiser.u1@gmail.com',
+        :password => 'h3llf1re@10184'
+  }
+  
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
 
