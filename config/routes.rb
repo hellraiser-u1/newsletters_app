@@ -2,6 +2,8 @@ NewslettersApp::Application.routes.draw do
 
   #get "users/new"
 
+  #mount Maktoub::Engine => "/"
+
   root :to => 'static_pages#home'
 
   match '/help',        to: 'static_pages#help'
@@ -10,7 +12,6 @@ NewslettersApp::Application.routes.draw do
 
   match '/signup',      to: 'users#new'
   match '/subscribe',   to: 'subscribers#new'
-  
   
   resources :subscriptions
   resources :newsletters

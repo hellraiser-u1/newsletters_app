@@ -9,6 +9,11 @@ gem 'factory_girl_rails', '1.4.0'
 # gem 'mail', '2.1.3'
 gem 'mail', '2.4.4'
 
+gem 'maktoub'
+
+#gem 'rake', '0.8.7'
+gem 'rake', '!= 0.9.0'
+
 
 group :development do
   gem 'sqlite3', '1.3.5'
