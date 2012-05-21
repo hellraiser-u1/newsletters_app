@@ -13,8 +13,8 @@ NewslettersApp::Application.routes.draw do
   match '/signup',      to: 'users#new'
   match '/subscribe',   to: 'subscribers#new'
   
-  match '/subscribers', to: 'subscribers#index'
-  match '/sendnewsletters', to: 'subscribers#send_newsletters'
+  match '/list_subscribers', to: 'subscribers#index'
+  match '/send_newsletters', to: 'subscribers#send_newsletters'
   
   resources :subscriptions
   resources :newsletters

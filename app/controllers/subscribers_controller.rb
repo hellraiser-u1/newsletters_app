@@ -48,15 +48,12 @@ class SubscribersController < ApplicationController
     @subscriber = Subscriber.find(params[:id])
   end
 
+  # POST /subscribers
+  # POST /subscribers.json
   def create
     @subscriber = Subscriber.new(params[:subscriber])
     if @subscriber.save
       UserMailer.subscription_confirmation(@subscriber,'https://floating-sky.herokuapp.com').deliver
-      
-      #SubscribersMailer.weekly_newsletter(@subscriber).deliver
-      
-      #@subs = Subscriber.all
-      #SubscribersMailer.weekly_newsletter(@subs).deliver
       
       flash[:success] = "Thank you for subscribing to our Newsletter!"
       redirect_to root_path
@@ -92,16 +89,6 @@ class SubscribersController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
-  
-  #def send
-  #  @subscribers = Subscriber.find_by_sql "SELECT name, email FROM Users WHERE subscription = True"
-  #  
-  #  MyMailer.send_newsletters(@subscribers).deliver
-  #  
-  #  flash[:success] = "Newsletters have been sent!"
-  #  redirect_to root_path
-  #end
   
   
 end
