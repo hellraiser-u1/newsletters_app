@@ -3,18 +3,22 @@ class SubscribersController < ApplicationController
   # GET /subscribers.json
   def index
     @subscribers = Subscriber.all
+      
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @subscribers }
+    end
+  end
+  
+  def send_newsletters
+    @subscribers = Subscriber.all
 
     @subscribers.each do |s|
       SubscribersMailer.weekly_newsletter(s).deliver
     end
       
-    #respond_to do |format|
-    #  format.html # index.html.erb
-    #  format.json { render json: @subscribers }
-    #end
-
-      flash[:success] = "Newsletters sent!"
-      redirect_to root_path
+    flash[:success] = "Newsletters sent!"
+    redirect_to subscribers_path    
   end
 
   # GET /subscribers/1
