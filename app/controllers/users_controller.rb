@@ -41,26 +41,26 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
-<<<<<<< HEAD
 
     User.transaction do
-      if @user.save
-        ##UserMailer.registration_confirmation(@user,'https://floating-sky.herokuapp.com').deliver
-  
-        if @user.subscription = "true"
-          Subscriber.find_or_create_by_name_and_email(@user.name,@user.email)
-          #@subscriber = Subscriber.new(:name => @user.name, :email => @user.email)
-          #@subscriber.save
-        end
 
-        flash[:success] = "Thank you for your membership!"
-        redirect_to @user
-      else
-        render 'new'
+    if @user.save
+      UserMailer.registration_confirmation(@user,'https://floating-sky.herokuapp.com').deliver
+
+      if @user.subscription = "true"
+        Subscriber.find_or_create_by_name_and_email(@user.name,@user.email)
       end
-    end
-  end
 
+      sign_in @user
+      
+      flash[:success] = "Welcome to Application X!"
+      redirect_to @user
+    else
+      render 'new'
+    end
+    end
+
+    
   def unsubscribe
     @user = User.find(params[:id])
     
@@ -79,17 +79,7 @@ class UsersController < ApplicationController
       @subscriber.destroy
 
       flash[:success] = "You have been unsubscribed from our weekly newsletter!"
-=======
-    
-    if @user.save
-      UserMailer.registration_confirmation(@user,'https://floating-sky.herokuapp.com').deliver
-      
-      sign_in @user
-      
-      flash[:success] = "Welcome to Application X!"
->>>>>>> sign-in-out
-      redirect_to @user
-    end
+
   end
 
   # PUT /users/1
