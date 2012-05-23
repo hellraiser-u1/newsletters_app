@@ -44,9 +44,9 @@ class UsersController < ApplicationController
 
     User.transaction do
       if @user.save
-        UserMailer.registration_confirmation(@user,'https://floating-sky.herokuapp.com').deliver
+        #UserMailer.registration_confirmation(@user,'https://floating-sky.herokuapp.com').deliver
   
-        if @user.subscription = "true"
+        if @user.subscription
           Subscriber.find_or_create_by_name_and_email(@user.name,@user.email)
         end
   
@@ -57,28 +57,6 @@ class UsersController < ApplicationController
       else
         render 'new'
       end
-    end
-  end
-
-    
-  def unsubscribe
-    @user = User.find(params[:id])
-    
-    User.transaction do
-      @user.subscription = "false"
-      @user.save
-
-      @subscriber = Subscriber.where(:name => @user.name, :email => @user.email)
-      
-      #User.find(params[:user_id])
-      #:user_id => @user.id
-
-      #Client.where("orders_count = ?", params[:orders])
-      
-      #Student.where(params[:student])
-      @subscriber.destroy
-
-      flash[:success] = "You have been unsubscribed from our weekly newsletter!"
     end
   end
 

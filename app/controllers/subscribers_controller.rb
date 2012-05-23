@@ -86,14 +86,45 @@ class SubscribersController < ApplicationController
   # DELETE /subscribers/1
   # DELETE /subscribers/1.json
   def destroy
-    @subscriber = Subscriber.find(params[:id])
-    @subscriber.destroy
+    @subscriber = Subscriber.find_by_name_and_email(current_user.name, current_user.email)
+    if @subscriber.nil?
+      @subscriber = Subscriber.find(params[:id])
+    end
 
+    @user = User.find_by_name_and_email(@subscriber.name, @subscriber.email)
+    if !@user.nil?
+      Subscriber.transaction do
+        #@user.subscription = false
+        @user.update_attributes(:subscription => false)
+        @user.save!
+        @subscriber.destroy
+      end      
+    end
+    
     respond_to do |format|
       format.html { redirect_to subscribers_url }
       format.json { head :no_content }
     end
   end
-  
+
+
+    
+  def unsubscribe
+    #@subscriber = Subscriber.find_by_name_and_email(current_user.name, current_user.email)
+    
+    #if !@subscriber.nil?
+    #@subscriber.destroy
+    #end
+    
+    @subscriber.destroy
+
+    @user = current_user #User.find(params[:id])
+    @user.subscription = "false"
+    @user.save
+    @user = User.find(params[:id])
+    
+    flash[:success] = "You have been unsubscribed from our weekly newsletter!"
+    redirect_to @user
+  end  
   
 end

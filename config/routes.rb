@@ -14,7 +14,9 @@ NewslettersApp::Application.routes.draw do
   match '/signin',      to: 'sessions#new'
   match '/signout',     to: 'sessions#destroy', via: :delete
   match '/subscribe',   to: 'subscribers#new'
-  match '/unsubscribe',   to: 'users#unsubscribe'
+  
+  match '/unsubscribe',   to: 'subscribers#unsubscribe'
+
   
   match '/list_subscribers', to: 'subscribers#index'
   match '/send_newsletters', to: 'subscribers#send_newsletters'

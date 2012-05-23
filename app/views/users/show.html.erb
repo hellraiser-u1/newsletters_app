@@ -28,7 +28,9 @@
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Unsubscribe', { :action => "unsubscribe", :id => @user.id } %> |
+
+<%= link_to "Unsubscribe", {:controller => "subscribers", :action => "unsubscribe", :id => @user}, method: :delete %> | 
+
 <%= link_to 'Back', users_path %>
 
-<%= button_to "Unsubscribe?", { :action => "unsubscribe", :id => @user.id }, :method => :delete %>
+<%= button_to "Unsubscribe?", {:controller => "subscribers", :action => "unsubscribe", :id => @user }, method: :delete %>
