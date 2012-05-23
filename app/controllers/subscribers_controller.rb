@@ -13,6 +13,11 @@ class SubscribersController < ApplicationController
   def send_newsletters
     @subscribers = Subscriber.all
 
+
+    #User.find_each(:batch_size => 5000) do |user|
+    #  NewsLetter.weekly_deliver(user)
+    #end
+
     @subscribers.each do |s|
       SubscribersMailer.weekly_newsletter(s).deliver
     end
@@ -53,7 +58,7 @@ class SubscribersController < ApplicationController
   def create
     @subscriber = Subscriber.new(params[:subscriber])
     if @subscriber.save
-      UserMailer.subscription_confirmation(@subscriber,'https://floating-sky.herokuapp.com').deliver
+      ##UserMailer.subscription_confirmation(@subscriber,'https://floating-sky.herokuapp.com').deliver
       
       flash[:success] = "Thank you for subscribing to our Newsletter!"
       redirect_to root_path

@@ -39,34 +39,48 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
-  #def create
-  #  @user = User.new(params[:user])
-  #
-  #  respond_to do |format|
-  #    if @user.save
-  #      format.html { redirect_to @user, notice: 'User was successfully created.' }
-  #      format.json { render json: @user, status: :created, location: @user }
-  #    else
-  #      format.html { render action: "new" }
-  #      format.json { render json: @user.errors, status: :unprocessable_entity }
-  #    end
-  #  end
-  #end
-
- 
- 
   def create
     @user = User.new(params[:user])
-    if @user.save
-      UserMailer.registration_confirmation(@user,'https://floating-sky.herokuapp.com').deliver
-      
-      flash[:success] = "Thank you for your membership to Application X!"
-      redirect_to @user
-    else
-      render 'new'
+
+    User.transaction do
+      if @user.save
+        ##UserMailer.registration_confirmation(@user,'https://floating-sky.herokuapp.com').deliver
+  
+        if @user.subscription = "true"
+          Subscriber.find_or_create_by_name_and_email(@user.name,@user.email)
+          #@subscriber = Subscriber.new(:name => @user.name, :email => @user.email)
+          #@subscriber.save
+        end
+
+        flash[:success] = "Thank you for your membership!"
+        redirect_to @user
+      else
+        render 'new'
+      end
     end
   end
 
+  def unsubscribe
+    @user = User.find(params[:id])
+    
+    User.transaction do
+      @user.subscription = "false"
+      @user.save
+
+      @subscriber = Subscriber.where(:name => @user.name, :email => @user.email)
+      
+      #User.find(params[:user_id])
+      #:user_id => @user.id
+
+      #Client.where("orders_count = ?", params[:orders])
+      
+      #Student.where(params[:student])
+      @subscriber.destroy
+
+      flash[:success] = "You have been unsubscribed from our weekly newsletter!"
+      redirect_to @user
+    end
+  end
 
   # PUT /users/1
   # PUT /users/1.json
@@ -75,7 +89,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, notice: 'Your profile was updated successfully.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
