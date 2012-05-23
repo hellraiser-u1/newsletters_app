@@ -9,6 +9,10 @@
 #  updated_at      :datetime        not null
 #  password_digest :string(255)
 #  subscription    :boolean
+<<<<<<< HEAD
+=======
+#  remember_token  :string(255)
+>>>>>>> sign-in-out
 #
 
 require 'test_helper'

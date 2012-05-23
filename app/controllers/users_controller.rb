@@ -41,6 +41,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
+<<<<<<< HEAD
 
     User.transaction do
       if @user.save
@@ -78,6 +79,15 @@ class UsersController < ApplicationController
       @subscriber.destroy
 
       flash[:success] = "You have been unsubscribed from our weekly newsletter!"
+=======
+    
+    if @user.save
+      UserMailer.registration_confirmation(@user,'https://floating-sky.herokuapp.com').deliver
+      
+      sign_in @user
+      
+      flash[:success] = "Welcome to Application X!"
+>>>>>>> sign-in-out
       redirect_to @user
     end
   end

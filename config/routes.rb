@@ -11,15 +11,19 @@ NewslettersApp::Application.routes.draw do
   match '/contact',     to: 'static_pages#contact'
 
   match '/signup',      to: 'users#new'
+  match '/signin',      to: 'sessions#new'
+  match '/signout',     to: 'sessions#destroy', via: :delete
   match '/subscribe',   to: 'subscribers#new'
   match '/unsubscribe',   to: 'users#unsubscribe'
   
   match '/list_subscribers', to: 'subscribers#index'
   match '/send_newsletters', to: 'subscribers#send_newsletters'
+
   
   resources :subscriptions
   resources :newsletters
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
   resources :subscribers
 
   # The priority is based upon order of creation:
