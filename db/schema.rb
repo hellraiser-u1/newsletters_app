@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120523110503) do
+ActiveRecord::Schema.define(:version => 20120525121349) do
 
   create_table "newsletters", :force => true do |t|
     t.string   "title"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20120523110503) do
     t.string   "password_digest"
     t.boolean  "subscription"
     t.string   "remember_token"
+    t.boolean  "admin"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -10,6 +10,8 @@
 #  password_digest :string(255)
 #  subscription    :boolean
 #  remember_token  :string(255)
+#  admin           :boolean
+#
 
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :subscription
