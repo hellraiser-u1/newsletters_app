@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20120516103239) do
-=======
 ActiveRecord::Schema.define(:version => 20120523110503) do
->>>>>>> sign-in-out
 
   create_table "newsletters", :force => true do |t|
     t.string   "title"
@@ -46,13 +42,10 @@ ActiveRecord::Schema.define(:version => 20120523110503) do
     t.datetime "updated_at",      :null => false
     t.string   "password_digest"
     t.boolean  "subscription"
-<<<<<<< HEAD
-=======
     t.string   "remember_token"
->>>>>>> sign-in-out
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+  add_index "users", ["email"], :name => "index_users_on_remember_token", :unique => true
 
 end
