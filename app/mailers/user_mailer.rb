@@ -6,7 +6,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url = url
     #attachments["rails.png"] = File.read("#{Rails.root}/app/assets/images/rails.png")
-    mail(:to => "#{user.name} <#{user.email}>", :subject => "Thank You for Registering with Application X")
+    mail(:to => "#{user.name} <#{user.email}>", :subject => "Application X [Membership] - Welcome!")
   end
 
 
@@ -14,7 +14,11 @@ class UserMailer < ActionMailer::Base
     @subscriber = subscriber
     @url = url
     #attachments["rails.png"] = File.read("#{Rails.root}/app/assets/images/rails.png")
-    mail(:to => "#{subscriber.name} <#{subscriber.email}>", :subject => "Subscription to Application X")
+    mail(:to => "#{subscriber.name} <#{subscriber.email}>", :subject => "Application X [Newsletter Subscription] - Thank you!")
   end
   
+  def password_reset(user)  
+    @user = user  
+    mail :to => user.email, :subject => "Application X [Password Reset]"  
+  end  
 end

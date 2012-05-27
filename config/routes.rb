@@ -1,5 +1,7 @@
 NewslettersApp::Application.routes.draw do
 
+  get "password_resets/new"
+
   #get "users/new"
 
   # mount Maktoub::Engine => "/maktoub"
@@ -33,6 +35,8 @@ NewslettersApp::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :subscribers
+
+  resources :password_resets 
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -21,15 +21,26 @@ class User < ActiveRecord::Base
   
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
-  #before_create :generate_token
+  
+  before_create { generate_token(:password_reset_token) }  
+    
+ 
 
-  validates :name, presence: false, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }, :on => :create
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence:   false,
+  validates :email, presence:   true,
                     format:     { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+                    uniqueness: { case_sensitive: false }, :on => :create
+  validates :password, presence: true, length: { minimum: 6 }, :on => :create
+  validates :password_confirmation, presence: true, :on => :create
+
+
+  def send_password_reset  
+    generate_token(:password_reset_token)  
+    self.password_reset_sent_at = Time.zone.now  
+    save!  
+    UserMailer.password_reset(self).deliver  
+  end
 
   private
   
@@ -40,6 +51,14 @@ class User < ActiveRecord::Base
     #def generate_token
     #  self.token = Digest::SHA1.hexdigest([Time.now, rand].join)
     #end
+
+    def generate_token(column)  
+      begin  
+        self[column] = SecureRandom.urlsafe_base64  
+      end while User.exists?(column => self[column])  
+    end    
+ 
+
 end
 
 
