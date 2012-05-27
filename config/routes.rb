@@ -8,7 +8,7 @@ NewslettersApp::Application.routes.draw do
 
   match '/help',        to: 'static_pages#help'
   match '/about',       to: 'static_pages#about'
-  match '/contact',     to: 'static_pages#contact'
+  #match '/contact',     to: 'static_pages#contact'
 
   match '/signup',      to: 'users#new'
   match '/signin',      to: 'sessions#new'
@@ -21,6 +21,12 @@ NewslettersApp::Application.routes.draw do
   match '/list_subscribers', to: 'subscribers#index'
   match '/send_newsletters', to: 'subscribers#send_newsletters'
 
+  #notifications_mailer
+    #When a GET request is made to /contact, the new action is called.
+    match '/contact' => 'contact#new', :as => 'contact', :via => :get
+    #When a POST request is made to /contact, the create action is called.
+    match '/contact' => 'contact#create', :as => 'contact', :via => :post
+  #
   
   resources :subscriptions
   resources :newsletters
