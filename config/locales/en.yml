@@ -5,4 +5,11 @@ en:
   activerecord:
     attributes:
       user:
-        password_digest: "Password"
+        name: "Name"
+        email: "Email"
+        password: "Password"
+        password_digest: "Password Confirmation"
+        
+
+
+  
