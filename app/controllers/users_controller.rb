@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       if @user.save
         #UserMailer.registration_confirmation(@user,'https://floating-sky.herokuapp.com').deliver
   
-        if @user.subscription
+        if @user.subscription?
           Subscriber.find_or_create_by_name_and_email(@user.name,@user.email)
         end
   

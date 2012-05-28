@@ -14,7 +14,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation, :subscription
+  attr_accessible :name, :email, :password, :password_confirmation, :subscription, :password_reset_sent_at
   has_secure_password
   
   #has_one :subscriptions
@@ -26,19 +26,23 @@ class User < ActiveRecord::Base
     
  
 
-  validates :name, presence: true, length: { maximum: 50 }, :on => :create
+  validates :name, presence: true, length: { maximum: 50 }#, :on => :create
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence:   true,
                     format:     { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }, :on => :create
-  validates :password, presence: true, length: { minimum: 6 }, :on => :create
-  validates :password_confirmation, presence: true, :on => :create
+                    uniqueness: { case_sensitive: false }#, :on => :create
+  validates :password, presence: true, length: { minimum: 6 }#, :on => :create
+  validates :password_confirmation, presence: true#, :on => :create
 
+  
 
   def send_password_reset  
     generate_token(:password_reset_token)  
-    self.password_reset_sent_at = Time.zone.now  
-    save!  
+    #self.password_reset_sent_at = Time.zone.now
+    #@person.update_column(:some_attribute, 'value')
+    self.update_attribute(:password_reset_sent_at,Time.zone.now)
+    #self.update_column(:password_reset_sent_at, Time.zone.now)
+    #save!  
     UserMailer.password_reset(self).deliver  
   end
 
